@@ -74,3 +74,34 @@ query HeroForEpisode($ep: Episode!) {
         }
     ]
 }
+
+/**
+ * The hero field returns the type Character, which means it might be either a Human or a Droid 
+ * depending on the episode argument. In the query above, you can only ask for fields that exist 
+ * on the Character interface, which doesn't include primaryFunction.
+ * 
+ * To ask for a field on a specific object type, you need to use an inline fragment:
+ */
+query HeroForEpisode($ep: Episode!) {
+    hero(episode: $ep) {
+        name
+        ... on Droid {
+            primaryFunction
+        }
+    }
+}
+
+// Input query syntax is:
+{
+    "ep": "JEDI"
+}
+
+// Output of above query is:
+{
+    "data": {
+        "hero": {
+            "name": "R2-D2",
+            "primaryFunction": "Astromech"
+        }
+    }
+}
