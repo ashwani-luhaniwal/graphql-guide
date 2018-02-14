@@ -8,10 +8,10 @@
  * They’ll then be referenced in index.js to instantiate your GraphQLServer.
  */
 function feed(parent, args, context, info) {
-    const { filter, first, skip } = args;    // destructive input arguments
+    const { filter, first, skip } = args    // destructive input arguments
     const where = filter
         ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
-        : {};
+        : {}
 
     // Notice that in the line context.db.query.links({ first, skip, where }, info), you’re 
     // accessing the Prisma instance which you previously attached to the context object when 
