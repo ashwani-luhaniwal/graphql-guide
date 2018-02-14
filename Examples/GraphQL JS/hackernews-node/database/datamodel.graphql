@@ -1,6 +1,6 @@
-type Post {
+# Define a Link type for your data model
+type Link {
   id: ID! @unique
-  isPublished: Boolean! @default(value: false)
-  title: String!
-  text: String!
+  description: String!
+  url: String!
 }
