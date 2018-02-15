@@ -1,12 +1,12 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
-const Query = require('./resolvers/Query')
-const Mutation = require('./resolvers/Mutation')
+const { GraphQLServer } = require('graphql-yoga');
+const { Prisma } = require('prisma-binding');
+const Query = require('./resolvers/Query');
+const Mutation = require('./resolvers/Mutation');
 
 const resolvers = {
   Query,
   Mutation,
-}
+};
 
 /**
  * Here you instantiate your GraphQLServer with the following arguments:
@@ -43,6 +43,6 @@ const server = new GraphQLServer({
       debug: true, // log all GraphQL queryies & mutations
     }),
   }),
-})
+});
 
-server.start(() => console.log('Server is running on http://localhost:4000'))
+server.start(() => console.log('Server is running on http://localhost:4000'));
