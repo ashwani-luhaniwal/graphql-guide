@@ -50,7 +50,7 @@ async function signup(parent, args, context, info) {
 async function login(parent, args, context, info) {
     const user = await context.db.query.user({ where: { email: args.email } });
     if (!user) {
-        throw new Error(`Could not find user with email: ${args.email}`);
+        throw new Error('No such user found');
     }
 
     const valid = await bcrypt.compare(args.password, user.password);
