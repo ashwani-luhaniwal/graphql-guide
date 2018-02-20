@@ -4,16 +4,15 @@ type Vote {
   user: User!
 }
 
-# Define a Link type for your data model
 type Link {
   id: ID! @unique
+  createdAt: DateTime!
   description: String!
   url: String!
   postedBy: User
   votes: [Vote!]!
 }
 
-# User type for data model
 type User {
   id: ID! @unique
   name: String!
