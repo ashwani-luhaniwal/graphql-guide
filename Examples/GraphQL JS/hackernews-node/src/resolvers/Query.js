@@ -7,16 +7,25 @@
  * will be written in dedicated files called Query.js and Mutation.js and Subscription.js. 
  * They’ll then be referenced in index.js to instantiate your GraphQLServer.
  */
-function feed(parent, args, context, info) {
-    const { filter, first, skip } = args    // destructive input arguments
+async function feed(parent, args, context, info) {
+    const { filter, first, skip } = args;    // destructive input arguments
     const where = filter
         ? { OR: [{ url_contains: filter }, { description_contains: filter }] }
-        : {}
+        : {};
+
+    const allLinks = await context.db.query.links({});
+    const count = allLinks.length;
+
+    const queriedLinkes = await context.db.query.links({ first, skip, where });
 
     // Notice that in the line context.db.query.links({ first, skip, where }, info), you’re 
     // accessing the Prisma instance which you previously attached to the context object when 
     // instantiating the GraphQLServer.
-    return context.db.query.links({ first, skip, where }, info);
+    // return context.db.query.links({ first, skip, where }, info);
+    return {
+        linkIds: queriedLinkes.map(link => link.id),
+        count
+    }
 }
 
 module.exports = {
