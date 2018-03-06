@@ -1,4 +1,7 @@
+import express from 'express';
+import bodyParser from 'body-parser';
 import { graphqlExpress } from "apollo-server-express";
+const app = express();
 
 /**
  * --------------------------
@@ -92,7 +95,21 @@ formatError: err => {
  * The above are the only options you need most of the time. Here are some others that can be 
  * useful as workarounds for various situations:
  */
+
 // options objects
 const GraphQLOptions = {
-    
+    // a function applied to the parameters of every invocation of runQuery
+    formatParams?: Function,
+
+    // * - (optional) validationRules: extra validation rules applied to requests
+    validationRules?: Array<ValidationRule>,
+
+    // a function applied to each graphQL execution result
+    formatResponse?: Function,
+
+    // a custom default field resolver
+    fieldResolver?: Function,
+
+    // a boolean that will print additional debug logging if execution errors occur
+    debug?: boolean
 }
